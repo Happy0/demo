@@ -1,29 +1,31 @@
 #footballField {
     position: relative;
-    background-image: url("pitch.jpg");
+    background-image: url("pitch2.jpg");
     margin-left: auto;
     margin-right: auto;
-    height: 400px;
-    width: 635px;
+    height: 500px;
+    width: 795px;
 }
 
 #keeper {
     position: relative;
-    top: 20px;
+    top: 40px;
     left: 0px;
 }
 
-#defender {
+#pos3 {
     position: relative;
+    top: 50px;
 }
 
-#midfield {
+#pos4 {
     position: relative;
-    left: 20px;
+    top: 50px;
 }
 
-#attack {
+#pos5 {
     position: relative;
+    top: 20px;
 }
 
 #navlist li {

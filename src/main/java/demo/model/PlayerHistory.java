@@ -4,6 +4,16 @@ public class PlayerHistory
 {
     private int minutesPlayed;
 
+    public boolean isCaptain() {
+        return isCaptain;
+    }
+
+    public void setCaptain(boolean captain) {
+        isCaptain = captain;
+    }
+
+    private boolean isCaptain;
+
     public int getMinutesPlayed() {
         return minutesPlayed;
     }
@@ -21,7 +31,7 @@ public class PlayerHistory
     }
 
     public int getTotalScore() {
-        return totalScore;
+        return isCaptain ? totalScore * 2 : totalScore;
     }
 
     public void setTotalScore(int totalScore) {

@@ -17,6 +17,16 @@ public class Team
     public String week;
     public int weekScore;
 
+    public String getFormation() {
+        return formation;
+    }
+
+    public void setFormation(String formation) {
+        this.formation = formation;
+    }
+
+    public String formation;
+
     public int getWeekScore() {
 
         int teamScore = 0;
@@ -25,7 +35,9 @@ public class Team
         {
             PlayerHistory ph = p.getHistorySingleWeek(the_week + 1);
             p.setWeekScore(ph.getTotalScore());
-            teamScore+=ph.getTotalScore();
+            if (!p.isOnBench()) {
+                teamScore += ph.getTotalScore();
+            }
         }
 
         return teamScore;

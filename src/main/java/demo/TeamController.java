@@ -1,15 +1,14 @@
 package demo;
 
+import demo.model.Formation;
 import demo.model.Player;
 import demo.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class TeamController {
@@ -23,9 +22,14 @@ public class TeamController {
 
     @RequestMapping(value = "/optimal/{week}")
     @ResponseBody
-    public Team getOptimalTeam(@PathVariable(value = "week") String week) throws IOException {
+    public Team getOptimalTeam(@PathVariable(value = "week") String week,
+                               @RequestParam(value = "formation", required = false) String formation) throws IOException {
         TeamCalculator teamCalculator = new TeamCalculator();
-        return teamCalculator.generateBestTeam(week);
+        Optional<String> formationOpt = Optional.ofNullable(formation);
+        Optional<Formation> optionalFormation = formationOpt.map(opt -> Formation.fromString(opt));
+
+        // Defaults to the best formation if the client did not supply a formation
+        return teamCalculator.generateBestTeam(week, optionalFormation);
     }
 
     @RequestMapping(value = "/players")

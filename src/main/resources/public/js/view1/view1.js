@@ -11,10 +11,49 @@ angular.module('myApp.view1', ['ngRoute'])
 
 .controller('View1Ctrl', function($scope, team) {
 
-        $scope.week = 20;
+        $scope.week = 11;
+        $scope.formation = "optimal";
+
+        $scope.getSurname = function(i) {
+            var surname = i.surname;
+            if (i.isCaptain != null && i.isCaptain !== undefined && i.isCaptain === true) {
+                surname = surname + "(C)";
+            }
+            return surname;
+        }
+
+        $scope.formatFormation = function () {
+            if ($scope.team != null && $scope.team !== undefined) {
+                if ($scope.team.formation != null && $scope.team.formation !== undefined) {
+                    var ff = $scope.team.formation.substring(0, 1) + '-';
+                    ff = ff + $scope.team.formation.substring(1, 2) + '-';
+                    ff = ff + $scope.team.formation.substring(2, 3);
+                    return ff;
+                }
+            }
+            return '';
+        }
+
+        $scope.getCSS = function(position) {
+            var css;
+
+            if (position == '1') {
+                return 'keeper';
+            } else if (position == '2') { // def
+                css = $scope.team.formation.substring(0, 1);
+            } else if (position == '3') { // mid
+                css = $scope.team.formation.substring(1, 2);
+            } else if (position == '4') { // att
+                css = $scope.team.formation.substring(2, 3);
+            }
+
+            var finalCss = 'pos' + css;
+
+            return finalCss;
+        }
 
         $scope.getOptimalTeam = function() {
-            team.getOptimal($scope.week)
+            team.getOptimal($scope.week, $scope.formation)
                     .success(function (response) {
                         $scope.team = response;
                     })

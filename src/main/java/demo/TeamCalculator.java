@@ -1,14 +1,12 @@
 package demo;
 
+import demo.model.Formation;
 import demo.model.Player;
 import demo.model.Team;
 import demo.utils.SlidingWindowIterator;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TeamCalculator
@@ -23,7 +21,14 @@ public class TeamCalculator
         scoreCalculator = new SimplePlayerScoreCalculator();
     }
 
-    public Team generateBestTeam(String week) throws IOException {
+    /**
+     * Return the algorithm's guess at the best team for a given week.
+     * @param week The fixture week
+     * @param formation An optional formation. If none is given, we return the formation which gives the best score
+     * @return
+     * @throws IOException
+     */
+    public Team generateBestTeam(String week, Optional<Formation> formation) throws IOException {
         //Score players and sort based on score
         List<Player> players =  playerDataLoader.getFullPlayerList();
         int maxWeek = players.get(1).getMaxWeek();
@@ -51,73 +56,128 @@ public class TeamCalculator
                 .stream()
                 .forEach(Collections::sort);
 
-        return buildTeam(keepers, defenders, midFielders, attackers, Integer.toString(currentWeek));
+        return buildTeam(keepers, defenders, midFielders, attackers, Integer.toString(currentWeek), formation);
     }
 
-    private Team buildTeam(List<Player> keepers, List<Player> defenders, List<Player> midFielders, List<Player> attackers, String week) {
-        int numKeepers = 2; // 1 sub
-        int numDefenders = 5; // 2 sub
-        int numMidfielders = 5; // 1 sub
-        int numStrikers = 3;
+    private Team buildTeam(List<Player> keepers, List<Player> defenders, List<Player> midFielders, List<Player> attackers, String week,
+                           Optional<Formation> formation) {
 
-        int keeperSubs = 1;
-        int defenderSubs = 2;
-        int midFielderSubs = 1;
+        EnumMap<Formation, Team> formationTeamEnumMap = buildOptimalTeamCompliments(keepers, defenders, midFielders, attackers, week);
 
-        Iterator<List<Player>> keepersWindow = new SlidingWindowIterator<>(keepers, numKeepers);
-        Iterator<List<Player>> defendersWindow = new SlidingWindowIterator<>(defenders, numDefenders);
-        Iterator<List<Player>> midFieldersWindow = new SlidingWindowIterator<>(midFielders, numMidfielders);
-        Iterator<List<Player>> strikersWindow = new SlidingWindowIterator<>(attackers, numStrikers);
+        // Default to the best formation
+        return formation.map(form -> formationTeamEnumMap.get(form)).orElse(bestTeamFormation(formationTeamEnumMap.values()));
+    }
 
-        List<Player> candidateKeepers = keepersWindow.next();
-        List<Player> candidateDefenders = defendersWindow.next();
-        List<Player> candidateMidFielders = midFieldersWindow.next();
-        List<Player> candidateStrikers = strikersWindow.next();
+    private Team bestTeamFormation(Collection<Team> teams)
+    {
+        Iterator<Team> teamIterator = teams.iterator();
+        Team current = teamIterator.next();
+        int currentScore = current.getWeekScore();
 
-        boolean foundTeam = false;
-        Team team = new Team(candidateKeepers, candidateDefenders, candidateMidFielders, candidateStrikers, week);
-
-        int dropFrom = 0;
-        while (!foundTeam)
+        while (teamIterator.hasNext())
         {
-            switch (dropFrom) {
-                case 0:
-                    candidateKeepers = keepersWindow.next();
-                    break;
-                case 1:
-                    candidateDefenders = defendersWindow.next();
-                    break;
-                case 2:
-                    candidateMidFielders = midFieldersWindow.next();
-                    break;
-                case 3:
-                    candidateStrikers = strikersWindow.next();
-                    break;
-            }
+            Team compareTeam = teamIterator.next();
 
-            if (dropFrom == 3)
+            if (compareTeam.getWeekScore() > currentScore)
             {
-                dropFrom = 0;
+                current = compareTeam;
+                currentScore = compareTeam.getWeekScore();
             }
-            else
-            {
-                dropFrom++;
-            }
-
-            team = new Team(candidateKeepers, candidateDefenders, candidateMidFielders, candidateStrikers, week);
-            foundTeam = team.clubCountSatisfied() && team.costSatisfied();
         }
 
-        setSubs(team.getKeepers(), keeperSubs);
-        setSubs(team.getDefence(), defenderSubs);
-        setSubs(team.getMidfield(), midFielderSubs);
+        return current;
+    }
 
-        team.setSubs();
-        return team;
+    private EnumMap<Formation, Team> buildOptimalTeamCompliments(List<Player> keepers, List<Player> defenders,
+                                                                 List<Player> midFielders,
+                                                                 List<Player> attackers,
+                                                                 String week)
+    {
+
+        EnumMap<Formation, Team> teams = new EnumMap(Formation.class);
+        for (Formation formation : Formation.values())
+        {
+            List<Player> keepersClone = keepers.stream().map(ply -> new Player(ply)).collect(Collectors.toList());
+            List<Player> defendersClone = defenders.stream().map(ply -> new Player(ply)).collect(Collectors.toList());
+            List<Player> midFieldersClone = midFielders.stream().map(ply -> new Player(ply)).collect(Collectors.toList());
+            List<Player> attackersClone = attackers.stream().map(ply -> new Player(ply)).collect(Collectors.toList());
+
+            int numKeepers = formation.getNumKeepers(); // 1 sub
+            int numDefenders = formation.getNumDefenders(); // 2 sub
+            int numMidfielders = formation.getNumMidfielders(); // 1 sub
+            int numStrikers = formation.getNumAttackers();
+
+            int keeperSubs = 1;
+            int defenderSubs = formation.getDefenderSubs();
+            int midFielderSubs = formation.getMidfielderSubs();
+            int strikerSubs = formation.getAttackerSubs();
+
+            Iterator<List<Player>> keepersWindow = new SlidingWindowIterator<>(keepersClone, numKeepers);
+            Iterator<List<Player>> defendersWindow = new SlidingWindowIterator<>(defendersClone, numDefenders);
+            Iterator<List<Player>> midFieldersWindow = new SlidingWindowIterator<>(midFieldersClone, numMidfielders);
+            Iterator<List<Player>> strikersWindow = new SlidingWindowIterator<>(attackersClone, numStrikers);
+
+            List<Player> candidateKeepers = keepersWindow.next();
+            List<Player> candidateDefenders = defendersWindow.next();
+            List<Player> candidateMidFielders = midFieldersWindow.next();
+            List<Player> candidateStrikers = strikersWindow.next();
+
+            boolean foundTeam = false;
+            Team team = new Team(candidateKeepers, candidateDefenders, candidateMidFielders, candidateStrikers, week);
+
+            int dropFrom = 0;
+            while (!foundTeam)
+            {
+                switch (dropFrom) {
+                    case 0:
+                        candidateKeepers = keepersWindow.next();
+                        break;
+                    case 1:
+                        candidateDefenders = defendersWindow.next();
+                        break;
+                    case 2:
+                        candidateMidFielders = midFieldersWindow.next();
+                        break;
+                    case 3:
+                        candidateStrikers = strikersWindow.next();
+                        break;
+                }
+
+                if (dropFrom == 3)
+                {
+                    dropFrom = 0;
+                }
+                else
+                {
+                    dropFrom++;
+                }
+
+                team = new Team(candidateKeepers, candidateDefenders, candidateMidFielders, candidateStrikers, week);
+                foundTeam = team.clubCountSatisfied() && team.costSatisfied();
+            }
+
+            setSubs(team.getKeepers(), keeperSubs);
+            setSubs(team.getDefence(), defenderSubs);
+            setSubs(team.getMidfield(), midFielderSubs);
+            setSubs(team.getAttack(), strikerSubs);
+
+            team.setSubs();
+
+            team.setFormation(formation.toString());
+
+            teams.put(formation, team);
+        }
+
+        return teams;
     }
 
     private void setSubs(List<Player> players, int numSubs)
     {
+        if (numSubs == 0)
+        {
+            return;
+        }
+
         List<Player> subs = players.subList(players.size() - numSubs - 1, players.size() - 1);
         subs.forEach(player -> player.setOnBench(true));
 

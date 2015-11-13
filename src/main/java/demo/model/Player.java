@@ -10,232 +10,200 @@ import java.util.Map;
  * Created by mtldds on 12/11/2015.
  */
 @JsonDeserialize(using = PlayerDeserializer.class)
-public class Player implements Comparable<Player>
-{
-    public String getSurname()
-    {
-        return surname;
-    }
-
-    public void setSurname(String surname)
-    {
-        this.surname = surname;
-    }
-
-    public String getForename()
-    {
-        return forename;
-    }
-
-    public void setForename(String forename)
-    {
-        this.forename = forename;
-    }
-
-    public String getClub()
-    {
-        return club;
-    }
-
-    public void setClub(String club)
-    {
-        this.club = club;
-    }
-
-    public int getPosition()
-    {
-        return position;
-    }
-
-    public void setPosition(int position)
-    {
-        this.position = position;
-    }
-
-    public int getMinutesPlayed()
-    {
-        return minutesPlayed;
-    }
-
-    public void setMinutesPlayed(int minutesPlayed)
-    {
-        this.minutesPlayed = minutesPlayed;
-    }
-
-    public int getPointsPerGame()
-    {
-        return pointsPerGame;
-    }
-
-    public void setPointsPerGame(int pointsPerGame)
-    {
-        this.pointsPerGame = pointsPerGame;
-    }
-
-    public int getPrice()
-    {
-        return price;
-    }
-
-    public void setPrice(int price)
-    {
-        this.price = price;
-    }
-
-    public int getTotalScore()
-    {
-        return totalScore;
-    }
-
-    public void setTotalScore(int totalScore)
-    {
-        this.totalScore = totalScore;
-    }
-
-    public double getAlgorithmScore()
-    {
-        return algorithmScore;
-    }
-
-    public void setAlgorithmScore(double algorithmScore)
-    {
-        this.algorithmScore = algorithmScore;
-    }
+public class Player implements Comparable<Player> {
 
     private String surname;
     private String forename;
     private String club;
     private int position;
-
     private int minutesPlayed;
     private int pointsPerGame;
     private int price;
     private int totalScore;
+    private int chanceOfPlaying;
+    private int weekScore;
+    private double algorithmScore;
+    private boolean onBench;
+    private Map<Integer, PlayerHistory> playerHistoryMap = new HashMap();
+    private boolean captain;
 
-    public Fixture getNextFixture()
-    {
-        return nextFixture;
+    public Player() {
+        this.captain = false;
     }
 
-    public void setNextFixture(Fixture nextFixture)
-    {
-        this.nextFixture = nextFixture;
+    //Copy constructor
+    public Player(Player player) {
+        this.surname = player.surname;
+        this.forename = player.forename;
+        this.club = player.club;
+        this.position = player.position;
+        this.minutesPlayed = player.minutesPlayed;
+        this.pointsPerGame = player.pointsPerGame;
+        this.price = player.price;
+        this.totalScore = player.totalScore;
+        this.chanceOfPlaying = player.chanceOfPlaying;
+        this.weekScore = player.weekScore;
+        this.algorithmScore = player.algorithmScore;
+        this.onBench = player.onBench;
+        this.playerHistoryMap = player.playerHistoryMap;
+        this.captain = player.captain;
     }
 
-    private Fixture nextFixture;
+    public String getSurname() {
+        return surname;
+    }
 
-    public int getChanceOfPlaying()
-    {
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getForename() {
+        return forename;
+    }
+
+    public void setForename(String forename) {
+        this.forename = forename;
+    }
+
+    public String getClub() {
+        return club;
+    }
+
+    public void setClub(String club) {
+        this.club = club;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getMinutesPlayed() {
+        return minutesPlayed;
+    }
+
+    public void setMinutesPlayed(int minutesPlayed) {
+        this.minutesPlayed = minutesPlayed;
+    }
+
+    public int getPointsPerGame() {
+        return pointsPerGame;
+    }
+
+    public void setPointsPerGame(int pointsPerGame) {
+        this.pointsPerGame = pointsPerGame;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public double getAlgorithmScore() {
+        return algorithmScore;
+    }
+
+    public void setAlgorithmScore(double algorithmScore) {
+        this.algorithmScore = algorithmScore;
+    }
+
+    public int getChanceOfPlaying() {
         return chanceOfPlaying;
     }
 
-    public void setChanceOfPlaying(int chanceOfPlaying)
-    {
+    public void setChanceOfPlaying(int chanceOfPlaying) {
         this.chanceOfPlaying = chanceOfPlaying;
     }
 
-    private int chanceOfPlaying;
-
-    public int getWeekScore()
-    {
+    public int getWeekScore() {
         return weekScore;
     }
 
-    public void setWeekScore(int weekScore)
-    {
+    public void setWeekScore(int weekScore) {
         this.weekScore = weekScore;
     }
 
-    private int weekScore;
-
-    private double algorithmScore;
-
-    public boolean isOnBench()
-    {
+    public boolean isOnBench() {
         return onBench;
     }
 
-    public void setOnBench(boolean onBench)
-    {
+    public void setOnBench(boolean onBench) {
         this.onBench = onBench;
     }
 
-    private boolean onBench;
+    public boolean isCaptain() {
+        return captain;
+    }
+
+    public void setCaptain(boolean captain) {
+        this.captain = captain;
+    }
 
     @Override
-    public int compareTo(Player p)
-    {
-        if (this.getAlgorithmScore() < p.algorithmScore)
-        {
+    public int compareTo(Player p) {
+        if (this.getAlgorithmScore() < p.algorithmScore) {
             return 1;
-        }
-        else if (this.getAlgorithmScore() > p.algorithmScore)
-        {
+        } else if (this.getAlgorithmScore() > p.algorithmScore) {
             return -1;
-        }
-        else if (this.totalScore < p.totalScore)
-        {
+        } else if (this.totalScore < p.totalScore) {
             return 1;
-        }
-        else
-        {
+        } else {
             return -1;
         }
     }
 
-    public String toString()
-    {
+    public String toString() {
         return this.getForename() + " " + this.getSurname();
     }
 
-    public Map<Integer, PlayerHistory> getPlayerHistoryMap()
-    {
+    public Map<Integer, PlayerHistory> getPlayerHistoryMap() {
         return playerHistoryMap;
     }
 
-    private Map<Integer, PlayerHistory> playerHistoryMap = new HashMap();
-
-    public int getWeekScore(int weekNo)
-    {
+    public int getWeekScore(int weekNo) {
         int week = (weekNo > playerHistoryMap.size()) ? playerHistoryMap.size() : weekNo;
         return playerHistoryMap.get(week).getTotalScore();
     }
 
-    public PlayerHistory getHistorySingleWeek(int weekNo)
-    {
+    public PlayerHistory getHistorySingleWeek(int weekNo) {
         PlayerHistory playerHistoryToWeek = new PlayerHistory();
 
 
-        if (playerHistoryMap.containsKey(weekNo))
-        {
+        if (playerHistoryMap.containsKey(weekNo)) {
             return playerHistoryMap.get(weekNo);
-        }
-        else
-        {
+        } else {
             return playerHistoryToWeek;
         }
 
     }
 
-    public int getMaxWeek()
-    {
-        int maxWeek =1;
-        for (int i = 1; i < 41; i++)
-        {
-            if (playerHistoryMap.containsKey(i))
-            {
+    public int getMaxWeek() {
+        int maxWeek = 1;
+        for (int i = 1; i < 41; i++) {
+            if (playerHistoryMap.containsKey(i)) {
                 maxWeek = i;
-            }
-            else
-            {
+            } else {
                 break;
             }
         }
         return maxWeek;
     }
 
-    public PlayerHistory getHistoryToWeek(int weekNo)
-    {
+    public PlayerHistory getHistoryToWeek(int weekNo) {
 
         PlayerHistory playerHistoryToWeek = new PlayerHistory();
 
@@ -245,17 +213,14 @@ public class Player implements Comparable<Player>
 
         int weekToStopAt = (weekNo > playerHistoryMap.size()) ? playerHistoryMap.size() : weekNo;
 
-        for (int i = 1; i < weekToStopAt; i++)
-        {
-            if (playerHistoryMap.containsKey(i))
-            {
+        for (int i = 1; i < weekToStopAt; i++) {
+            if (playerHistoryMap.containsKey(i)) {
                 PlayerHistory playerHistory = playerHistoryMap.get(i);
 
                 r_minsPlayed += playerHistory.getMinutesPlayed();
                 r_totalScore += playerHistory.getTotalScore();
 
-                if (r_maxPrice < playerHistory.getValue())
-                {
+                if (r_maxPrice < playerHistory.getValue()) {
                     r_maxPrice = playerHistory.getValue();
                 }
             }
@@ -268,4 +233,6 @@ public class Player implements Comparable<Player>
 
         return playerHistoryToWeek;
     }
+
+
 }
