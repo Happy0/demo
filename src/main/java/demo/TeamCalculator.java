@@ -97,6 +97,11 @@ public class TeamCalculator
         EnumMap<Formation, Team> teams = new EnumMap(Formation.class);
         for (Formation formation : Formation.values())
         {
+            List<Player> keepersClone = keepers.stream().map(ply -> new Player(ply)).collect(Collectors.toList());
+            List<Player> defendersClone = defenders.stream().map(ply -> new Player(ply)).collect(Collectors.toList());
+            List<Player> midFieldersClone = midFielders.stream().map(ply -> new Player(ply)).collect(Collectors.toList());
+            List<Player> attackersClone = attackers.stream().map(ply -> new Player(ply)).collect(Collectors.toList());
+
             int numKeepers = formation.getNumKeepers(); // 1 sub
             int numDefenders = formation.getNumDefenders(); // 2 sub
             int numMidfielders = formation.getNumMidfielders(); // 1 sub
@@ -107,10 +112,10 @@ public class TeamCalculator
             int midFielderSubs = formation.getMidfielderSubs();
             int strikerSubs = formation.getAttackerSubs();
 
-            Iterator<List<Player>> keepersWindow = new SlidingWindowIterator<>(keepers, numKeepers);
-            Iterator<List<Player>> defendersWindow = new SlidingWindowIterator<>(defenders, numDefenders);
-            Iterator<List<Player>> midFieldersWindow = new SlidingWindowIterator<>(midFielders, numMidfielders);
-            Iterator<List<Player>> strikersWindow = new SlidingWindowIterator<>(attackers, numStrikers);
+            Iterator<List<Player>> keepersWindow = new SlidingWindowIterator<>(keepersClone, numKeepers);
+            Iterator<List<Player>> defendersWindow = new SlidingWindowIterator<>(defendersClone, numDefenders);
+            Iterator<List<Player>> midFieldersWindow = new SlidingWindowIterator<>(midFieldersClone, numMidfielders);
+            Iterator<List<Player>> strikersWindow = new SlidingWindowIterator<>(attackersClone, numStrikers);
 
             List<Player> candidateKeepers = keepersWindow.next();
             List<Player> candidateDefenders = defendersWindow.next();

@@ -22,7 +22,7 @@ public enum Formation {
     public int[] getValidPlayers() {
         switch (this) {
             case FIVE_FOUR_ONE:
-                return new int[]{3,4,3};
+                return new int[]{5,4,1};
             case FIVE_THREE_TWO:
                 return new int[]{5,3,2};
             case FIVE_TWO_THREE:

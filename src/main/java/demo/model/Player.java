@@ -12,6 +12,7 @@ import java.util.Map;
 @JsonDeserialize(using = PlayerDeserializer.class)
 public class Player implements Comparable<Player>
 {
+
     public String getSurname()
     {
         return surname;
@@ -111,6 +112,26 @@ public class Player implements Comparable<Player>
     private int pointsPerGame;
     private int price;
     private int totalScore;
+
+    public Player(){}
+
+    //Copy constructor
+    public Player(Player player)
+    {
+        this.surname = player.surname;
+        this.forename = player.forename;
+        this.club = player.club;
+        this.position = player.position;
+        this.minutesPlayed = player.minutesPlayed;
+        this.pointsPerGame = player.pointsPerGame;
+        this.price = player.price;
+        this.totalScore = player.totalScore;
+
+        this.chanceOfPlaying = player.chanceOfPlaying;
+        this.weekScore = player.weekScore;
+        this.algorithmScore = player.algorithmScore;
+        this.onBench = player.onBench;
+    }
 
     public int getChanceOfPlaying()
     {
@@ -256,4 +277,6 @@ public class Player implements Comparable<Player>
 
         return playerHistoryToWeek;
     }
+
+
 }
