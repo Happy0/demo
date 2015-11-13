@@ -47,11 +47,11 @@
         </table>
     </div>
 
-    <p align="right"><b>Total Value: £{{team.totalValue}}M : Score: {{team.weekScore}}</b></p>
+    <p align="middle"><b>Total Value: £{{team.totalValue}}M : Score: {{team.weekScore}} : Formation: {{formatFormation()}}</b></p>
 
     <p>
         <img src="bench.png" align="middle" />
-        <span ng-repeat="i in team.subs" ng-class="col.colIndex()"> <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">{{i.surname}}</span>
+        <span ng-repeat="i in team.subs" ng-class="col.colIndex()"><img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">{{i.surname}}</span>
     </p>
 
     <table>

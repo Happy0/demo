@@ -14,6 +14,13 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.week = 11;
         $scope.formation = "optimal";
 
+        $scope.formatFormation = function () {
+            var ff = $scope.team.formation.substring(0, 1) + '-';
+            ff = ff + $scope.team.formation.substring(1, 2) + '-';
+            ff = ff + $scope.team.formation.substring(2, 3);
+            return ff;
+        }
+
         $scope.getCSS = function(position) {
             var css;
 
@@ -28,7 +35,6 @@ angular.module('myApp.view1', ['ngRoute'])
             }
 
             var finalCss = 'pos' + css;
-
 
             return finalCss;
         }
