@@ -27,6 +27,18 @@ public class Player implements Comparable<Player> {
     private Map<Integer, PlayerHistory> playerHistoryMap = new HashMap();
     private boolean captain;
 
+    public Fixture getNextFixture()
+    {
+        return nextFixture;
+    }
+
+    public void setNextFixture(Fixture nextFixture)
+    {
+        this.nextFixture = nextFixture;
+    }
+
+    private Fixture nextFixture;
+
     public Player() {
         this.captain = false;
     }
