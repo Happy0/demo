@@ -8,7 +8,8 @@
                         <ul id="navlist" class="img-list">
                             <li>
                                 <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.forename}} {{i.surname}} ({{i.club}}) : {{i.weekScore}}pts">
-                                <p><font color="white">{{getSurname(i)}}</font></p>
+                                <div ng-show="isCaptain(i)"><img style="text-align:center" src="captain.png"><font color="white">{{getSurname(i)}}</font></div>
+                                <div ng-hide="isCaptain(i)"><p><font color="white">{{getSurname(i)}}</font></p></div>
                             </li>
                         </ul>
                     </div>
@@ -18,7 +19,8 @@
                         <ul id="navlist" class="img-list">
                             <li>
                                 <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.forename}} {{i.surname}} ({{i.club}}) : {{i.weekScore}}pts">
-                                <p><font color="white">{{getSurname(i)}}</font></p>
+                                <div ng-show="isCaptain(i)"><img style="text-align:center" src="captain.png"><font color="white">{{getSurname(i)}}</font></div>
+                                <div ng-hide="isCaptain(i)"><p><font color="white">{{getSurname(i)}}</font></p></div>
                             </li>
                         </ul>
                     </div>
@@ -28,7 +30,8 @@
                         <ul id="navlist" class="img-list">
                             <li>
                                 <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.forename}} {{i.surname}} ({{i.club}}) : {{i.weekScore}}pts">
-                                <p><font color="white">{{getSurname(i)}}</font></p>
+                                <div ng-show="isCaptain(i)"><img style="text-align:center" src="captain.png"><font color="white">{{getSurname(i)}}</font></div>
+                                <div ng-hide="isCaptain(i)"><p><font color="white">{{getSurname(i)}}</font></p></div>
                             </li>
                         </ul>
                     </div>
@@ -38,7 +41,8 @@
                         <ul id="navlist" class="img-list">
                             <li>
                                 <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.forename}} {{i.surname}} ({{i.club}}) : {{i.weekScore}}pts">
-                                <p><font color="white">{{getSurname(i)}}</font></p>
+                                <div ng-show="isCaptain(i)"><img style="text-align:center" src="captain.png"><font color="white">{{getSurname(i)}}</font></div>
+                                <div ng-hide="isCaptain(i)"><p><font color="white">{{getSurname(i)}}</font></p></div>
                             </li>
                         </ul>
                     </div>
