@@ -23,9 +23,6 @@ angular.module('myApp.view1', ['ngRoute'])
         }
         $scope.getSurname = function(i) {
             var surname = i.surname;
-            if (i.captain != null && i.captain !== undefined && i.captain === true) {
-                surname = surname + "(C)";
-            }
             return surname;
         }
 
