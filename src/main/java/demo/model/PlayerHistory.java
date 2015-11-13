@@ -28,6 +28,17 @@ public class PlayerHistory
         this.totalScore = totalScore;
     }
 
+    public Fixture getFixture()
+    {
+        return fixture;
+    }
+
+    public void setFixture(Fixture fixture)
+    {
+        this.fixture = fixture;
+    }
+
+    private Fixture fixture;
     private int totalScore;
     private double value;
 

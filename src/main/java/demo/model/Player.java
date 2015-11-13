@@ -112,6 +112,18 @@ public class Player implements Comparable<Player>
     private int price;
     private int totalScore;
 
+    public Fixture getNextFixture()
+    {
+        return nextFixture;
+    }
+
+    public void setNextFixture(Fixture nextFixture)
+    {
+        this.nextFixture = nextFixture;
+    }
+
+    private Fixture nextFixture;
+
     public int getChanceOfPlaying()
     {
         return chanceOfPlaying;
