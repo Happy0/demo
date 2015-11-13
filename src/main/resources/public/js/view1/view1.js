@@ -14,11 +14,24 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.week = 11;
         $scope.formation = "optimal";
 
+        $scope.getSurname = function(i) {
+            var surname = i.surname;
+            if (i.isCaptain != null && i.isCaptain !== undefined && i.isCaptain === true) {
+                surname = surname + "(C)";
+            }
+            return surname;
+        }
+
         $scope.formatFormation = function () {
-            var ff = $scope.team.formation.substring(0, 1) + '-';
-            ff = ff + $scope.team.formation.substring(1, 2) + '-';
-            ff = ff + $scope.team.formation.substring(2, 3);
-            return ff;
+            if ($scope.team != null && $scope.team !== undefined) {
+                if ($scope.team.formation != null && $scope.team.formation !== undefined) {
+                    var ff = $scope.team.formation.substring(0, 1) + '-';
+                    ff = ff + $scope.team.formation.substring(1, 2) + '-';
+                    ff = ff + $scope.team.formation.substring(2, 3);
+                    return ff;
+                }
+            }
+            return '';
         }
 
         $scope.getCSS = function(position) {

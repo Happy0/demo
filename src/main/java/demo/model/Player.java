@@ -112,6 +112,20 @@ public class Player implements Comparable<Player>
     private int price;
     private int totalScore;
 
+    public Player() {
+        isCaptain = false;
+    }
+
+    public boolean isCaptain() {
+        return isCaptain;
+    }
+
+    public void setCaptain(boolean captain) {
+        isCaptain = captain;
+    }
+
+    private boolean isCaptain;
+
     public int getChanceOfPlaying()
     {
         return chanceOfPlaying;
