@@ -15,19 +15,22 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.formation = "optimal";
 
         $scope.getCSS = function(position) {
-            var css = "pos";
+            var css;
 
-            if (position === 1) {
+            if (position == '1') {
                 return 'keeper';
-            } else if (position === 2) { // def
-                css = css + $scope.team.formation.substring(0, 1);
-            } else if (position === 3) { // mid
-                css = css + $scope.team.formation.substring(1, 1);
-            } else if (position === 4) { // att
-                css = css + $scope.team.formation.substring(2, 1);
+            } else if (position == '2') { // def
+                css = $scope.team.formation.substring(0, 1);
+            } else if (position == '3') { // mid
+                css = $scope.team.formation.substring(1, 2);
+            } else if (position == '4') { // att
+                css = $scope.team.formation.substring(2, 3);
             }
 
-            return css;
+            var finalCss = 'pos' + css;
+
+
+            return finalCss;
         }
 
         $scope.getOptimalTeam = function() {
