@@ -15,7 +15,7 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.formation = "optimal";
 
         $scope.isCaptain = function(i) {
-            if (i.isCaptain != null && i.isCaptain !== undefined && i.isCaptain === true) {
+            if (i.captain != null && i.captain !== undefined && i.captain === true) {
                 return true;
             } else {
                 return false;
@@ -23,7 +23,7 @@ angular.module('myApp.view1', ['ngRoute'])
         }
         $scope.getSurname = function(i) {
             var surname = i.surname;
-            if (i.isCaptain != null && i.isCaptain !== undefined && i.isCaptain === true) {
+            if (i.captain != null && i.captain !== undefined && i.captain === true) {
                 surname = surname + "(C)";
             }
             return surname;
