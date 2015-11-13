@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
+import demo.model.Club;
+import demo.model.Fixture;
 import demo.model.Player;
 import demo.model.PlayerHistory;
 
@@ -20,6 +22,7 @@ public class PlayerDeserializer extends JsonDeserializer<Player>
     @Override
     public Player deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException
     {
+        Club club = new Club();
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
         Player player = new Player();
@@ -45,12 +48,29 @@ public class PlayerDeserializer extends JsonDeserializer<Player>
         }
 
         JsonNode fixture_history = node.get("fixture_history");
-        getPlayerFixtureHistory(fixture_history, player);
+        getPlayerFixtureHistory(fixture_history, player, club);
+
+        JsonNode nextFixture = node.get("fixtures");
+        player.setNextFixture(getNextFixture(nextFixture, player, club));
 
         return player;
     }
 
-    private void getPlayerFixtureHistory(JsonNode fixture_history, Player player)
+    private Fixture getNextFixture(JsonNode futureFixtures, Player player, Club club)
+    {
+        JsonNode allFixture = futureFixtures.get("all");
+
+        JsonNode fixture_node = allFixture.get(0);
+
+        String teamFixture = fixture_node.get(2).asText();
+
+        return new Fixture(player.getClub(), club.getLongName(teamFixture.substring(0,
+                teamFixture.indexOf("(")-1).trim()), teamFixture.substring(teamFixture.indexOf("(")+1,teamFixture.indexOf("(")+2).equals("H"));
+
+    }
+
+
+    private void getPlayerFixtureHistory(JsonNode fixture_history, Player player, Club club)
     {
         JsonNode fixture_history_all = fixture_history.get("all");
         Map<Integer, PlayerHistory> map = player.getPlayerHistoryMap();
@@ -66,6 +86,11 @@ public class PlayerDeserializer extends JsonDeserializer<Player>
                 if (weekNode != null)
                 {
                     int weekNumber = weekNode.asInt();
+
+                    String teamFixture = fixture_node.get(2).asText();
+                    playerHistory.setFixture(new Fixture(player.getClub(), club.getLongName(teamFixture.substring(0,
+                            3)), teamFixture.substring(4,5).equals("H")));
+
 
                     JsonNode minsNode = fixture_node.get(3);
                     int minsPlayed = minsNode == null ? 0 : minsNode.asInt();
