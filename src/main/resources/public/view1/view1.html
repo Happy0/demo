@@ -50,7 +50,7 @@
 
     <p>
         <img src="bench.png" align="middle" />
-        <span ng-repeat="i in team.subs" ng-class="col.colIndex()"> <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts"></span>
+        <span ng-repeat="i in team.subs" ng-class="col.colIndex()"> <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">{{i.surname}}</span>
     </p>
 
     <table><tr><td>Week: <input type="text" ng-model="week" maxlength="2" size="2"/></td><td><button ng-click="getOptimalTeam()">I'm feeling {{getWord()}}!</button></td></tr></table>
