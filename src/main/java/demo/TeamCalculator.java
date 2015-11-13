@@ -79,9 +79,16 @@ public class TeamCalculator
                 }
                 else
                 {
-                    captainFixture = player.getPlayerHistoryMap().get(currentWeek +1).getFixture();
+                    try
+                    {
+                        captainFixture = player.getPlayerHistoryMap().get(currentWeek + 1).getFixture();
+                    }
+                    catch (Exception e)
+                    {
+                        captainFixture =null;
+                    }
                 }
-                if (captainFixture.getCaptainScore() > bestScore) {
+                if (captainFixture !=null && captainFixture.getCaptainScore() > bestScore) {
                     captain = player;
                     bestScore = captainFixture.getCaptainScore();
                 }
