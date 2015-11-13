@@ -26,10 +26,19 @@ public class TeamCalculator
     public Team generateBestTeam(String week) throws IOException {
         //Score players and sort based on score
         List<Player> players =  playerDataLoader.getFullPlayerList();
+        int maxWeek = players.get(1).getMaxWeek();
+        int currentWeek = Integer.parseInt(week);
+        if (currentWeek>maxWeek)
+        {
+            currentWeek =maxWeek;
+        }
+        else
+        {
 
+        }
         for (Player player: players)
         {
-            player.setAlgorithmScore(scoreCalculator.getPlayerScore(player, Integer.parseInt(week)));
+            player.setAlgorithmScore(scoreCalculator.getPlayerScore(player, currentWeek));
         }
 
         List<Player> keepers = getPlayersOfPosition(players, 1);
@@ -42,7 +51,7 @@ public class TeamCalculator
                 .stream()
                 .forEach(Collections::sort);
 
-        return buildTeam(keepers, defenders, midFielders, attackers, week);
+        return buildTeam(keepers, defenders, midFielders, attackers, Integer.toString(currentWeek));
     }
 
     private Team buildTeam(List<Player> keepers, List<Player> defenders, List<Player> midFielders, List<Player> attackers, String week) {

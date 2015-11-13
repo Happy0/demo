@@ -17,8 +17,6 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.getCSS = function(position) {
             var css = "pos";
 
-            alert('getCSS: ' + position);
-
             if (position === 1) {
                 return 'keeper';
             } else if (position === 2) { // def

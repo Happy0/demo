@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import demo.model.Player;
 import demo.model.PlayerHistory;
-import jdk.nashorn.internal.parser.JSONParser;
 
 import java.io.IOException;
 import java.util.Map;
@@ -15,10 +14,12 @@ import java.util.Map;
 /**
  * Created by mtlgma on 12/11/2015.
  */
-public class PlayerDeserializer extends JsonDeserializer<Player>{
+public class PlayerDeserializer extends JsonDeserializer<Player>
+{
 
     @Override
-    public Player deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public Player deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException
+    {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
         Player player = new Player();
@@ -32,6 +33,17 @@ public class PlayerDeserializer extends JsonDeserializer<Player>{
         player.setTotalScore(node.get("total_points").asInt());
         player.setPosition(node.get("element_type").asInt());
 
+        String chance = node.get("chance_of_playing_next_round").asText();
+        try
+        {
+            int chancePlaying =Integer.parseInt(chance);
+            player.setChanceOfPlaying(chancePlaying);
+        }
+        catch (NumberFormatException ne)
+        {
+            player.setChanceOfPlaying(100);
+        }
+
         JsonNode fixture_history = node.get("fixture_history");
         getPlayerFixtureHistory(fixture_history, player);
 
@@ -41,17 +53,19 @@ public class PlayerDeserializer extends JsonDeserializer<Player>{
     private void getPlayerFixtureHistory(JsonNode fixture_history, Player player)
     {
         JsonNode fixture_history_all = fixture_history.get("all");
-        Map<Integer, PlayerHistory> map =  player.getPlayerHistoryMap();
+        Map<Integer, PlayerHistory> map = player.getPlayerHistoryMap();
 
-        for(int i= 0; i<fixture_history_all.size(); i++)
+        for (int i = 0; i < fixture_history_all.size(); i++)
         {
             PlayerHistory playerHistory = new PlayerHistory();
             JsonNode fixture_node = fixture_history_all.get(i);
 
-            if (fixture_node != null) {
+            if (fixture_node != null)
+            {
                 JsonNode weekNode = fixture_node.get(1);
-                if (weekNode != null) {
-                    int weekNumber =weekNode.asInt();
+                if (weekNode != null)
+                {
+                    int weekNumber = weekNode.asInt();
 
                     JsonNode minsNode = fixture_node.get(3);
                     int minsPlayed = minsNode == null ? 0 : minsNode.asInt();
