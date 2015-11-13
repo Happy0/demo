@@ -204,7 +204,7 @@ public class Player implements Comparable<Player>
             return playerHistoryMap.get(week).getTotalScore();
         } else {
             return 0;
-        }}
+        }
     }
 
     public PlayerHistory getHistorySingleWeek(int weekNo)
