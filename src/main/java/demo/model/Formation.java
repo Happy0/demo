@@ -19,6 +19,49 @@ public enum Formation {
     THREE_FIVE_TWO,
     THREE_FOUR_THREE;
 
+    public int[] getValidPlayers() {
+        switch (this) {
+            case FIVE_FOUR_ONE:
+                return new int[]{5,4,1};
+            case FIVE_THREE_TWO:
+                return new int[]{5,3,2};
+            case FIVE_TWO_THREE:
+                return new int[]{5,2,3};
+            case FOUR_FIVE_ONE:
+                return new int[]{4,5,1};
+            case FOUR_FOUR_TWO:
+                return new int[]{4,4,2};
+            case FOUR_THREE_THREE:
+                return new int[]{4,3,3};
+            case THREE_FIVE_TWO:
+                return new int[]{3,5,2};
+            case THREE_FOUR_THREE:
+                return new int[]{3,4,3};
+        }
+
+        return new int[]{0,0,0};
+    }
+
+    public int getNumKeepers()
+    {
+        return 1 + 1;
+    }
+
+    public int getNumDefenders()
+    {
+        return getValidPlayers()[0] + getDefenderSubs();
+    }
+
+    public int getNumMidfielders()
+    {
+        return getValidPlayers()[1] + getMidfielderSubs();
+    }
+
+    public int getNumAttackers()
+    {
+        return getValidPlayers()[2] + getAttackerSubs();
+    }
+
     /**
      * We always have one substitute keeper. The columns in the array are defence, midfield, strikers
      * respectively.
@@ -75,7 +118,7 @@ public enum Formation {
         }
     }
 
-    public String toString(Formation formation) {
+    public String toString() {
         switch (this)
         {
             case FIVE_FOUR_ONE:
