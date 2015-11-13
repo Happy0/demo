@@ -14,7 +14,7 @@
                     </div>
                 </td>
                 <td>
-                    <div id="defender" ng-repeat="i in team.defence | filter: playingFilter">
+                    <div id="{{getCSS(2)}}" ng-repeat="i in team.defence | filter: playingFilter">
                         <ul id="navlist" class="img-list">
                             <li>
                                 <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
@@ -24,7 +24,7 @@
                     </div>
                 </td>
                 <td>
-                    <div id="midfield" ng-repeat="i in team.midfield | filter: playingFilter">
+                    <div id="{{getCSS(3)}}" ng-repeat="i in team.midfield | filter: playingFilter">
                         <ul id="navlist" class="img-list">
                             <li>
                                 <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
@@ -34,7 +34,7 @@
                     </div>
                 </td>
                 <td>
-                    <div id="attack" ng-repeat="i in team.attack | filter: playingFilter">
+                    <div id="{{getCSS(4)}}" ng-repeat="i in team.attack | filter: playingFilter">
                         <ul id="navlist" class="img-list">
                             <li>
                                 <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
@@ -45,13 +45,33 @@
                 </td>
             </tr>
         </table>
-        <p align="right"><b>Total Value: £{{team.totalValue}}M : Score: {{team.weekScore}}</b></p>
     </div>
+
+    <p align="right"><b>Total Value: £{{team.totalValue}}M : Score: {{team.weekScore}}</b></p>
 
     <p>
         <img src="bench.png" align="middle" />
         <span ng-repeat="i in team.subs" ng-class="col.colIndex()"> <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">{{i.surname}}</span>
     </p>
 
-    <table><tr><td>Week: <input type="text" ng-model="week" maxlength="2" size="2"/></td><td><button ng-click="getOptimalTeam()">I'm feeling {{getWord()}}!</button></td></tr></table>
+    <table>
+        <tr>
+            <td>Week: <input type="text" ng-model="week" maxlength="2" size="2"/></td>
+            <td>
+                <label>Formation: </label>
+                <select name="formSelect" ng-model="formation">
+                    <option value="optimal">optimal</option>
+                    <option value="541">5-4-1</option>
+                    <option value="532">5-3-2</option>
+                    <option value="523">5-2-3</option>
+                    <option value="451">4-5-1</option>
+                    <option value="442">4-4-2</option>
+                    <option value="433">4-3-3</option>
+                    <option value="352">3-5-2</option>
+                    <option value="343">3-4-3</option>
+                </select>
+            </td>
+            <td><button ng-click="getOptimalTeam()">I'm feeling {{getWord()}}!</button></td>
+        </tr>
+    </table>
 </div>

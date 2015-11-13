@@ -112,23 +112,39 @@ public class Player implements Comparable<Player>
     private int price;
     private int totalScore;
 
-    public int getWeekScore() {
+    public int getChanceOfPlaying()
+    {
+        return chanceOfPlaying;
+    }
+
+    public void setChanceOfPlaying(int chanceOfPlaying)
+    {
+        this.chanceOfPlaying = chanceOfPlaying;
+    }
+
+    private int chanceOfPlaying;
+
+    public int getWeekScore()
+    {
         return weekScore;
     }
 
-    public void setWeekScore(int weekScore) {
+    public void setWeekScore(int weekScore)
+    {
         this.weekScore = weekScore;
     }
 
     private int weekScore;
 
     private double algorithmScore;
-    
-    public boolean isOnBench() {
+
+    public boolean isOnBench()
+    {
         return onBench;
     }
 
-    public void setOnBench(boolean onBench) {
+    public void setOnBench(boolean onBench)
+    {
         this.onBench = onBench;
     }
 
@@ -160,7 +176,8 @@ public class Player implements Comparable<Player>
         return this.getForename() + " " + this.getSurname();
     }
 
-    public Map<Integer, PlayerHistory> getPlayerHistoryMap() {
+    public Map<Integer, PlayerHistory> getPlayerHistoryMap()
+    {
         return playerHistoryMap;
     }
 
@@ -176,11 +193,10 @@ public class Player implements Comparable<Player>
     {
         PlayerHistory playerHistoryToWeek = new PlayerHistory();
 
-        int week = (weekNo > playerHistoryMap.size()) ? playerHistoryMap.size() : weekNo;
 
-        if (playerHistoryMap.containsKey(week))
+        if (playerHistoryMap.containsKey(weekNo))
         {
-            return playerHistoryMap.get(week);
+            return playerHistoryMap.get(weekNo);
         }
         else
         {
@@ -189,7 +205,25 @@ public class Player implements Comparable<Player>
 
     }
 
-    public PlayerHistory getHistoryToWeek(int weekNo) {
+    public int getMaxWeek()
+    {
+        int maxWeek =1;
+        for (int i = 1; i < 41; i++)
+        {
+            if (playerHistoryMap.containsKey(i))
+            {
+                maxWeek = i;
+            }
+            else
+            {
+                break;
+            }
+        }
+        return maxWeek;
+    }
+
+    public PlayerHistory getHistoryToWeek(int weekNo)
+    {
 
         PlayerHistory playerHistoryToWeek = new PlayerHistory();
 
@@ -220,6 +254,6 @@ public class Player implements Comparable<Player>
         playerHistoryToWeek.setTotalScore(r_totalScore);
         playerHistoryToWeek.setValue(r_maxPrice);
 
-        return  playerHistoryToWeek;
+        return playerHistoryToWeek;
     }
 }

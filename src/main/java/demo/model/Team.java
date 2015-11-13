@@ -17,13 +17,23 @@ public class Team
     public String week;
     public int weekScore;
 
+    public String getFormation() {
+        return formation;
+    }
+
+    public void setFormation(String formation) {
+        this.formation = formation;
+    }
+
+    public String formation;
+
     public int getWeekScore() {
 
         int teamScore = 0;
         int the_week = Integer.parseInt(this.week);
         for (Player p : allPlayers())
         {
-            PlayerHistory ph = p.getHistorySingleWeek(the_week);
+            PlayerHistory ph = p.getHistorySingleWeek(the_week + 1);
             p.setWeekScore(ph.getTotalScore());
             teamScore+=ph.getTotalScore();
         }
