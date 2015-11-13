@@ -10,12 +10,31 @@ public class SimplePlayerScoreCalculator implements PlayerScore
     {
         if (week == 0)
         {
-            return (player.getMinutesPlayed() * player.getPointsPerGame() * 10) / player.getPrice();
+            return (player.getMinutesPlayed() * player.getPointsPerGame() * 10) / player.getPrice() * player.getChanceOfPlaying();
         }
         else
         {
             PlayerHistory playerHistory = player.getHistoryToWeek(week);
-            return (playerHistory.getMinutesPlayed() * (playerHistory.getTotalScore()/ week) * 10) / playerHistory.getValue();
+            int chancePlaying;
+            if (week == player.getMaxWeek())
+            {
+                chancePlaying = player.getChanceOfPlaying();
+            }
+            else
+            {
+                PlayerHistory futureHistory = player.getHistoryToWeek(week + 1);
+                if (futureHistory.getMinutesPlayed() > 0)
+                {
+                    chancePlaying = 100;
+                }
+                else
+                {
+                    chancePlaying=0;
+                }
+            }
+
+            return (playerHistory.getMinutesPlayed() * (playerHistory.getTotalScore() / week) * 10) / playerHistory
+                    .getValue() * chancePlaying;
         }
     }
 }

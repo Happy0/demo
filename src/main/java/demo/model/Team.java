@@ -23,7 +23,7 @@ public class Team
         int the_week = Integer.parseInt(this.week);
         for (Player p : allPlayers())
         {
-            PlayerHistory ph = p.getHistorySingleWeek(the_week);
+            PlayerHistory ph = p.getHistorySingleWeek(the_week + 1);
             p.setWeekScore(ph.getTotalScore());
             teamScore+=ph.getTotalScore();
         }
