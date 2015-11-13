@@ -11,7 +11,7 @@ angular.module('myApp.view1', ['ngRoute'])
 
 .controller('View1Ctrl', function($scope, team) {
 
-        $scope.week = 20;
+        $scope.week = 11;
         $scope.formation = "optimal";
 
         $scope.getCSS = function(position) {
