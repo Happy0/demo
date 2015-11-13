@@ -23,8 +23,8 @@ public class Club
         clubRanks.put("Arsenal", new int[]{3,19,11,9,6,4,5,4,2,2,2,2,2});
         clubRanks.put("Man Utd", new int[]{4,7,4,4,5,3,2,2,3,3,4,4,4});
         clubRanks.put("Spurs", new int[]{5,15,13,15,16,12,9,6,8,7,6,5,5});
-        clubRanks.put("Liverpool", new int[]{6,6,3,7,10,13,9,10,10,9,8,9});
-        clubRanks.put("Southampton", new int[]{7,11,17,18,10,16,10,9,8,8,7,7});
+        clubRanks.put("Liverpool", new int[]{6,6,3,7,10,13,9,10,10,9,8,8,9});
+        clubRanks.put("Southampton", new int[]{7,11,17,18,10,16,10,11,9,8,8,7,7});
         clubRanks.put("Swansea", new int[]{8,12,6,6,4,8,7,11,11,14,12,13,14});
         clubRanks.put("Stoke", new int[]{9,16,14,16,18,18,18,17,14,11,14,14,12});
         clubRanks.put("Crystal Palace", new int[]{10,3,7,5,2,6,8,7,4,6,7,10,10});
@@ -66,12 +66,23 @@ public class Club
     public int getRank(String teamName, int weekNo)
     {
         int[] ranks = clubRanks.get(teamName);
-        return ranks[weekNo];
+        try
+        {
+            int rank = ranks[weekNo];
+            return rank;
+        }
+        catch (Exception ne)
+        {
+            System.out.println("Team Name: " + teamName + " week no; " + weekNo);
+            throw ne;
+
+        }
     }
 
     public String getLongName(String shortName)
     {
-        return nameConversion.get(shortName);
+        String longName = nameConversion.get(shortName);
+        return  longName;
     }
 
 

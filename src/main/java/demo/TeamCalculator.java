@@ -1,5 +1,6 @@
 package demo;
 
+import demo.model.Fixture;
 import demo.model.Formation;
 import demo.model.Player;
 import demo.model.Team;
@@ -56,7 +57,37 @@ public class TeamCalculator
                 .stream()
                 .forEach(Collections::sort);
 
-        return buildTeam(keepers, defenders, midFielders, attackers, Integer.toString(currentWeek), formation);
+        Team bestTeam = buildTeam(keepers, defenders, midFielders, attackers, Integer.toString(currentWeek), formation);
+
+        setCaptain(bestTeam, currentWeek);
+
+        return bestTeam;
+
+    }
+
+    private void setCaptain(Team team, int currentWeek)
+    {
+        Player captain = team.allPlayers().get(0);
+        double bestScore = 0;
+        for (Player player: team.allPlayers()) {
+
+            if (!player.isOnBench()) {
+                Fixture captainFixture;
+                if (currentWeek == player.getMaxWeek())
+                {
+                    captainFixture = player.getNextFixture();
+                }
+                else
+                {
+                    captainFixture = player.getPlayerHistoryMap().get(currentWeek +1).getFixture();
+                }
+                if (captainFixture.getCaptainScore() > bestScore) {
+                    captain = player;
+                    bestScore = captainFixture.getCaptainScore();
+                }
+            }
+        }
+        captain.setCaptain(true);
     }
 
     private Team buildTeam(List<Player> keepers, List<Player> defenders, List<Player> midFielders, List<Player> attackers, String week,

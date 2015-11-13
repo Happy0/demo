@@ -5,6 +5,7 @@ import demo.utils.PlayerDeserializer;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.SynchronousQueue;
 
 /**
  * Created by mtldds on 12/11/2015.
@@ -59,6 +60,7 @@ public class Player implements Comparable<Player> {
         this.onBench = player.onBench;
         this.playerHistoryMap = player.playerHistoryMap;
         this.captain = player.captain;
+        this.nextFixture = player.getNextFixture();
     }
 
     public String getSurname() {

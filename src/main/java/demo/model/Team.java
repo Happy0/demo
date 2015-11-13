@@ -129,7 +129,7 @@ public class Team
                 .filter(p -> p.isOnBench()).collect(Collectors.toList());
     }
 
-    private List<Player> allPlayers()
+    public List<Player> allPlayers()
     {
         List<Player> allPlayers = new ArrayList<>();
         allPlayers.addAll(keepers);

@@ -64,8 +64,8 @@ public class PlayerDeserializer extends JsonDeserializer<Player>
 
         String teamFixture = fixture_node.get(2).asText();
 
-        return new Fixture(player.getClub(), club.getLongName(teamFixture.substring(0,
-                teamFixture.indexOf("(")-1).trim()), teamFixture.substring(teamFixture.indexOf("(")+1,teamFixture.indexOf("(")+2).equals("H"));
+        return new Fixture(player.getClub(), teamFixture.substring(0, teamFixture.indexOf("(")-1).trim(), teamFixture.substring(teamFixture.indexOf("(")+1,teamFixture
+                .indexOf("(")+2).equals("H"),12);
 
     }
 
@@ -89,7 +89,7 @@ public class PlayerDeserializer extends JsonDeserializer<Player>
 
                     String teamFixture = fixture_node.get(2).asText();
                     playerHistory.setFixture(new Fixture(player.getClub(), club.getLongName(teamFixture.substring(0,
-                            3)), teamFixture.substring(4,5).equals("H")));
+                            3)), teamFixture.substring(4,5).equals("H"),i));
 
 
                     JsonNode minsNode = fixture_node.get(3);

@@ -9,24 +9,27 @@ public class Fixture
     private final String oppTeam;
     private final boolean isHome;
 
-    public int getCaptainScore()
+    public double getCaptainScore()
     {
         return captainScore;
     }
 
-    private int captainScore;
+    private double captainScore;
 
-    public Fixture(String playerTeam, String oppTeam, boolean isHome)
+    public Fixture(String playerTeam, String oppTeam, boolean isHome, int weekNo)
     {
         this.playerTeam = playerTeam;
         this.oppTeam = oppTeam;
         this.isHome = isHome;
-        captainScore = calculateCaptainScore();
+        captainScore = calculateCaptainScore(weekNo);
     }
 
-    private int calculateCaptainScore()
+    private double calculateCaptainScore(int weekNo)
     {
-        return 100;
+        Club club = new Club();
+        double oppRank = club.getRank(oppTeam,weekNo);
+        if (isHome) { oppRank = oppRank * 1.5; }
+        return oppRank - club.getRank(playerTeam, weekNo);
     }
 
 
