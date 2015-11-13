@@ -1,14 +1,12 @@
 package demo;
 
+import demo.model.Formation;
 import demo.model.Player;
 import demo.model.Team;
 import demo.utils.SlidingWindowIterator;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TeamCalculator
@@ -23,7 +21,14 @@ public class TeamCalculator
         scoreCalculator = new SimplePlayerScoreCalculator();
     }
 
-    public Team generateBestTeam(String week) throws IOException {
+    /**
+     * Return the algorithm's guess at the best team for a given week.
+     * @param week The fixture week
+     * @param formation An optional formation. If none is given, we return the formation which gives the best score
+     * @return
+     * @throws IOException
+     */
+    public Team generateBestTeam(String week, Optional<Formation> formation) throws IOException {
         //Score players and sort based on score
         List<Player> players =  playerDataLoader.getFullPlayerList();
         int maxWeek = players.get(1).getMaxWeek();
