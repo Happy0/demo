@@ -72,16 +72,16 @@ public class TeamCalculator
     {
         Iterator<Team> teamIterator = teams.iterator();
         Team current = teamIterator.next();
-        int currentScore = current.getWeekScore();
+        int currentScore = current.getAlgorithmScore();
 
         while (teamIterator.hasNext())
         {
             Team compareTeam = teamIterator.next();
 
-            if (compareTeam.getWeekScore() > currentScore)
+            if (compareTeam.getAlgorithmScore() > currentScore)
             {
                 current = compareTeam;
-                currentScore = compareTeam.getWeekScore();
+                currentScore = compareTeam.getAlgorithmScore();
             }
         }
 
