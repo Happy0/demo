@@ -1,0 +1,62 @@
+#footballField {
+    position: relative;
+    background-image: url("pitch.jpg");
+    margin-left: auto;
+    margin-right: auto;
+    height: 400px;
+    width: 635px;
+}
+
+#keeper {
+    position: relative;
+    top: 20px;
+    left: 0px;
+}
+
+#defender {
+    position: relative;
+}
+
+#midfield {
+    position: relative;
+    left: 20px;
+}
+
+#attack {
+    position: relative;
+}
+
+#navlist li {
+    display: inline-block;
+    height: 20px;
+    list-style-type: none;
+    padding-right: 20px;
+}
+
+.thumbnail {
+    width:40px;
+    height:40px;
+    vertical-align:middle;
+}
+
+span.text-content {
+    background: rgba(0,0,0,0.5);
+    color: white;
+    cursor: pointer;
+    display: table;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 10px;
+}
+
+span.text-content span {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+ul.img-list li:hover span.text-content {
+    opacity: 1;
+}

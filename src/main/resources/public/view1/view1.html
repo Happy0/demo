@@ -1,0 +1,57 @@
+<div ng-controller="View1Ctrl" xmlns:Score="http://www.w3.org/1999/xhtml">
+
+    <div id="footballField">
+        <table>
+            <tr>
+                <td>
+                    <div id="keeper" ng-repeat="i in team.keepers | filter: playingFilter">
+                        <ul id="navlist" class="img-list">
+                            <li>
+                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
+                                <p><font color="white ">{{i.surname}}</font></p>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div id="defender" ng-repeat="i in team.defence | filter: playingFilter">
+                        <ul id="navlist" class="img-list">
+                            <li>
+                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
+                                <p><font color="white">{{i.surname}}</font></p>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div id="midfield" ng-repeat="i in team.midfield | filter: playingFilter">
+                        <ul id="navlist" class="img-list">
+                            <li>
+                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
+                                <p><font color="white ">{{i.surname}}</font></p>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div id="attack" ng-repeat="i in team.attack | filter: playingFilter">
+                        <ul id="navlist" class="img-list">
+                            <li>
+                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
+                                <p><font color="white">{{i.surname}}</font></p>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p align="right"><b>Total Value: £{{team.totalValue}}M : Score: {{team.weekScore}}</b></p>
+    </div>
+
+    <p>
+        <img src="bench.png" align="middle" />
+        <span ng-repeat="i in team.subs" ng-class="col.colIndex()"> <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts"></span>
+    </p>
+
+    <table><tr><td>Week: <input type="text" ng-model="week" maxlength="2" size="2"/></td><td><button ng-click="getOptimalTeam()">I'm feeling {{getWord()}}!</button></td></tr></table>
+</div>
