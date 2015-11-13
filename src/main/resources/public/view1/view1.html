@@ -7,7 +7,7 @@
                     <div id="keeper" ng-repeat="i in team.keepers | filter: playingFilter">
                         <ul id="navlist" class="img-list">
                             <li>
-                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
+                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.forename}} {{i.surname}} ({{i.club}}) : {{i.weekScore}}pts">
                                 <p><font color="white">{{getSurname(i)}}</font></p>
                             </li>
                         </ul>
@@ -17,7 +17,7 @@
                     <div id="{{getCSS(2)}}" ng-repeat="i in team.defence | filter: playingFilter">
                         <ul id="navlist" class="img-list">
                             <li>
-                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
+                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.forename}} {{i.surname}} ({{i.club}}) : {{i.weekScore}}pts">
                                 <p><font color="white">{{getSurname(i)}}</font></p>
                             </li>
                         </ul>
@@ -27,7 +27,7 @@
                     <div id="{{getCSS(3)}}" ng-repeat="i in team.midfield | filter: playingFilter">
                         <ul id="navlist" class="img-list">
                             <li>
-                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
+                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.forename}} {{i.surname}} ({{i.club}}) : {{i.weekScore}}pts">
                                 <p><font color="white">{{getSurname(i)}}</font></p>
                             </li>
                         </ul>
@@ -37,7 +37,7 @@
                     <div id="{{getCSS(4)}}" ng-repeat="i in team.attack | filter: playingFilter">
                         <ul id="navlist" class="img-list">
                             <li>
-                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">
+                                <img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.forename}} {{i.surname}} ({{i.club}}) : {{i.weekScore}}pts">
                                 <p><font color="white">{{getSurname(i)}}</font></p>
                             </li>
                         </ul>
@@ -51,7 +51,7 @@
 
     <p>
         <img src="bench.png" align="middle" />
-        <span ng-repeat="i in team.subs" ng-class="col.colIndex()"><img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.club}} : {{i.weekScore}}pts">{{i.surname}}</span>
+        <span ng-repeat="i in team.subs" ng-class="col.colIndex()"><img class="thumbnail" ng-src="{{getShirt(i)}}" title="{{i.forename}} {{i.surname}} ({{i.club}}) : {{i.weekScore}}pts">{{i.surname}}</span>
     </p>
 
     <table>
