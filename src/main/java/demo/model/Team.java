@@ -35,7 +35,9 @@ public class Team
         {
             PlayerHistory ph = p.getHistorySingleWeek(the_week + 1);
             p.setWeekScore(ph.getTotalScore());
-            teamScore+=ph.getTotalScore();
+            if (!p.isOnBench()) {
+                teamScore += ph.getTotalScore();
+            }
         }
 
         return teamScore;
