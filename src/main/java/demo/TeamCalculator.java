@@ -56,10 +56,12 @@ public class TeamCalculator
                 .stream()
                 .forEach(Collections::sort);
 
-        return buildTeam(keepers, defenders, midFielders, attackers, Integer.toString(currentWeek));
+        return buildTeam(keepers, defenders, midFielders, attackers, Integer.toString(currentWeek), formation);
     }
 
-    private Team buildTeam(List<Player> keepers, List<Player> defenders, List<Player> midFielders, List<Player> attackers, String week) {
+    private Team buildTeam(List<Player> keepers, List<Player> defenders, List<Player> midFielders, List<Player> attackers, String week,
+                           Optional<Formation> formation) {
+
         int numKeepers = 2; // 1 sub
         int numDefenders = 5; // 2 sub
         int numMidfielders = 5; // 1 sub

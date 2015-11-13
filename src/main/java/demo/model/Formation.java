@@ -49,6 +49,18 @@ public enum Formation {
         return new int[]{0,0,0};
     }
 
+    public int getDefenderSubs() {
+            return this.getValidSubs()[0];
+    }
+
+    public int getMidfielderSubs() {
+        return this.getValidSubs()[1];
+    }
+
+    public int getAttackerSubs() {
+        return this.getValidSubs()[2];
+    }
+
     public static Formation fromString(String formation) {
         switch(formation)
         {
