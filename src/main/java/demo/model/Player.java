@@ -140,7 +140,7 @@ public class Player implements Comparable<Player>
 
     public int getWeekScore()
     {
-        return weekScore;
+        return isCaptain ? weekScore * 2 : weekScore;
     }
 
     public void setWeekScore(int weekScore)
@@ -200,13 +200,16 @@ public class Player implements Comparable<Player>
     public int getWeekScore(int weekNo)
     {
         int week = (weekNo > playerHistoryMap.size()) ? playerHistoryMap.size() : weekNo;
-        return playerHistoryMap.get(week).getTotalScore();
+        if (playerHistoryMap.containsKey(week)) {
+            return playerHistoryMap.get(week).getTotalScore();
+        } else {
+            return 0;
+        }}
     }
 
     public PlayerHistory getHistorySingleWeek(int weekNo)
     {
         PlayerHistory playerHistoryToWeek = new PlayerHistory();
-
 
         if (playerHistoryMap.containsKey(weekNo))
         {
