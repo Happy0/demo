@@ -104,6 +104,10 @@ public class TeamCalculator
         setSubs(team.getMidfield(), midFielderSubs);
 
         team.setSubs();
+
+        // TODO: hardcoded for now
+        team.setFormation("343");
+
         return team;
     }
 

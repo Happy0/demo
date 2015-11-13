@@ -17,6 +17,16 @@ public class Team
     public String week;
     public int weekScore;
 
+    public String getFormation() {
+        return formation;
+    }
+
+    public void setFormation(String formation) {
+        this.formation = formation;
+    }
+
+    public String formation;
+
     public int getWeekScore() {
 
         int teamScore = 0;
