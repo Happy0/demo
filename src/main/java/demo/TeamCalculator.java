@@ -103,16 +103,16 @@ public class TeamCalculator
     {
         Iterator<Team> teamIterator = teams.iterator();
         Team current = teamIterator.next();
-        int currentScore = current.getWeekScore();
+        int currentScore = current.getAlgorithmScore();
 
         while (teamIterator.hasNext())
         {
             Team compareTeam = teamIterator.next();
 
-            if (compareTeam.getWeekScore() > currentScore)
+            if (compareTeam.getAlgorithmScore() > currentScore)
             {
                 current = compareTeam;
-                currentScore = compareTeam.getWeekScore();
+                currentScore = compareTeam.getAlgorithmScore();
             }
         }
 
@@ -209,7 +209,9 @@ public class TeamCalculator
             return;
         }
 
-        List<Player> subs = players.subList(players.size() - numSubs - 1, players.size() - 1);
+
+
+        List<Player> subs =         players.subList(Math.max(players.size() - numSubs, 0), players.size());
         subs.forEach(player -> player.setOnBench(true));
 
     }

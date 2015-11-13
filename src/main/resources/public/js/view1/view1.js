@@ -14,6 +14,13 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.week = 11;
         $scope.formation = "optimal";
 
+        $scope.isCaptain = function(i) {
+            if (i.isCaptain != null && i.isCaptain !== undefined && i.isCaptain === true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         $scope.getSurname = function(i) {
             var surname = i.surname;
             if (i.isCaptain != null && i.isCaptain !== undefined && i.isCaptain === true) {

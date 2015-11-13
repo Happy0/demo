@@ -181,7 +181,7 @@ public class Player implements Comparable<Player> {
     }
 
     public String toString() {
-        return this.getForename() + " " + this.getSurname();
+        return this.getForename() + " " + this.getSurname() + "(" + this.getAlgorithmScore() + ")";
     }
 
     public Map<Integer, PlayerHistory> getPlayerHistoryMap() {

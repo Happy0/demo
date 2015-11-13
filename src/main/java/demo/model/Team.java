@@ -43,6 +43,17 @@ public class Team
         return teamScore;
     }
 
+    public int getAlgorithmScore() {
+        int teamScore = 0;
+        for (Player p : allPlayers())
+        {
+            if (!p.isOnBench()) {
+                teamScore += p.getAlgorithmScore();
+            }
+        }
+        return teamScore;
+    }
+
     public void setWeekScore(int weekScore) {
         this.weekScore = weekScore;
     }
