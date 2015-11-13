@@ -178,7 +178,9 @@ public class TeamCalculator
             return;
         }
 
-        List<Player> subs = players.subList(players.size() - numSubs - 1, players.size() - 1);
+
+
+        List<Player> subs =         players.subList(Math.max(players.size() - numSubs, 0), players.size());
         subs.forEach(player -> player.setOnBench(true));
 
     }
