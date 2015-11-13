@@ -25,8 +25,10 @@ public class Player implements Comparable<Player> {
     private double algorithmScore;
     private boolean onBench;
     private Map<Integer, PlayerHistory> playerHistoryMap = new HashMap();
+    private boolean captain;
 
     public Player() {
+        this.captain = false;
     }
 
     //Copy constructor
@@ -44,6 +46,7 @@ public class Player implements Comparable<Player> {
         this.algorithmScore = player.algorithmScore;
         this.onBench = player.onBench;
         this.playerHistoryMap = player.playerHistoryMap;
+        this.captain = player.captain;
     }
 
     public String getSurname() {
@@ -140,6 +143,14 @@ public class Player implements Comparable<Player> {
 
     public void setOnBench(boolean onBench) {
         this.onBench = onBench;
+    }
+
+    public boolean isCaptain() {
+        return captain;
+    }
+
+    public void setCaptain(boolean captain) {
+        this.captain = captain;
     }
 
     @Override
